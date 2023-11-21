@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:      
+  wunderground2mqtt:
+    image: wunderground2mqtt
+    environment:
+      MQTT_HOST: 172.17.0.1
+      MQTT_USERNAME: usermqtt
+      MQTT_PASSWORD: pwd
+      MQTT_PUBLISH_TOPIC: wunderground
+      CONFIG_TOPIC: config/clients/wunderground
+      WU_API_KEY: <yourAPIkey>
+      WU_UPDATERATE: 120
+      WU_STATIONID: IDPWS00
+      WU_DECIMAL: true
