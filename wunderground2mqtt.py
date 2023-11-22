@@ -140,8 +140,10 @@ def wunderground_get_weather():
     logger.info("Getting Weather Underground data from " + wu_url)
 
     try: 
+        #api response 
         resonse = urllib.request.urlopen(wu_url)
     except urllib.error.URLErrorr as e:
+        #json error
         logger.error('URLError: ' + str(wu_url) + ': ' + str(e.reason))
         return None
     except Exception:
@@ -152,8 +154,11 @@ def wunderground_get_weather():
     parsed_json = json.load(resonse)
     resonse.close()
 
+    #new json "station" topic
     station_json_str = '{"obsTimeLocal":"'+ str(parsed_json['observations'][0]['obsTimeLocal'])+'","neighborhood":"'+ str(parsed_json['observations'][0]['neighborhood'])+'","country":"'+ str(parsed_json['observations'][0]['country'])+'"}'
+    #new json "weatherInfo" topic
     weather_json_str = '{"humidity":'+ str(parsed_json['observations'][0]['humidity'])+',"uv":'+ str(parsed_json['observations'][0]['uv'])+',"winddir":'+ str(parsed_json['observations'][0]['winddir'])+',"solarRadiation":'+ str(parsed_json['observations'][0]['solarRadiation'])+'}'
+    #new json "<unit>" topic
     metric_json_str = str(parsed_json['observations'][0][unitDesc]).replace("'", '"')
 
 #   Publish the values we parsed from the feed to the broker
@@ -167,7 +172,7 @@ def wunderground_get_weather():
 # Create the Mosquitto client
 mqttclient = paho.Client()
 
-# Bind the Mosquitte events to our event handlers
+# Bind the Mosquitto events to our event handlers
 mqttclient.on_connect = on_connect
 mqttclient.on_subscribe = on_subscribe
 mqttclient.on_message = on_message
