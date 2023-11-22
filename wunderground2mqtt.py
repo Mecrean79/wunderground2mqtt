@@ -16,23 +16,17 @@ import time
 import os
 import logging
 
-
 # Log to STDOUT
 logger = logging.getLogger("mqtt-wunderground")
 logger.setLevel(logging.INFO)
 consoleHandler = logging.StreamHandler()
 logger.addHandler(consoleHandler)
 
-
 # Component config
 config = {}
-config['deviceid'] = "wunderground"
-config['publish_topic'] = ""
-config['updaterate'] = 900  # in seconds
-
 
 # Get MQTT servername/address
-# Supports Docker environment variable format MQTT_BROKER = #.#.#.# and MQTT_PORT
+# Supports Docker environment variable format MQTT_HOST = #.#.#.# and MQTT_PORT
 config['mqtt_brocker'] = os.environ.get('MQTT_HOST')
 config['mqtt_port'] = os.environ.get('MQTT_PORT')
 if config['mqtt_brocker'] is None:
@@ -52,42 +46,42 @@ else:
     config['mqtt_password'] = os.environ.get('MQTT_PASSWORD')
 
 # Get config topic
-config['config_topic'] = os.environ.get('CONFIG_TOPIC')
+# Supports Docker environment variable format MQTT_CONFIG_TOPIC
+config['config_topic'] = os.environ.get('MQTT_CONFIG_TOPIC')
 if config['config_topic'] is None:
-    logger.info("CONFIG_TOPIC is not set, exiting")
+    logger.info("MQTT_CONFIG_TOPIC is not set, exiting")
     raise SystemExit
 
 # Get Weather Underground API key
+# Supports Docker environment variable format WU_API_KEY
 config['wu_api_key'] = os.environ.get('WU_API_KEY')
 if config['wu_api_key'] is None:
     logger.info("WU_API_KEY is not set, exiting")
     raise SystemExit
 
-# Get DeviceID for MQTTinfo only
-config['deviceid'] = os.environ.get('MQTT_DEVICEID')
-if config['deviceid'] is None:
-    logger.info("MQTT_DEVICEID is not set, use default wunderground")
-    config['deviceid'] = "wunderground"
-
 # Get MQTT Topic to use
+# Supports Docker environment variable format MQTT_PUBLISH_TOPIC
 config['publish_topic'] = os.environ.get('MQTT_PUBLISH_TOPIC')
 if config['publish_topic'] is None:
     logger.info("MQTT_PUBLISH_TOPIC is not set, exiting")
     raise SystemExit
 
 # Get Update rate to get WU informations
+# Supports Docker environment variable format WU_UPDATERATE
 config['updaterate'] = os.environ.get('WU_UPDATERATE')
 if config['updaterate'] is None:
     logger.info("WU_UPDATERATE is not set, use root 900 seconds")
     config['updaterate'] = 900
 
 # Get stationid for Weather Underground
+# Supports Docker environment variable format WU_STATIONID
 config['stationid'] = os.environ.get('WU_STATIONID')
 if config['stationid'] is None:
     logger.info("stationid is not set, exiting")
     raise SystemExit
 
 # Get Numeric Precision
+# Supports Docker environment variable format WU_DECIMAL
 booldecimal = os.getenv("WU_DECIMAL", 'False').lower() in ('true', '1', 't')
 if booldecimal is None or booldecimal != True:
     logger.info("WU_DECIMAL is not set, incorrect or false, use no decimal")
@@ -96,6 +90,7 @@ else:
     config['numericprecision'] = "&numericPrecision=decimal"
 
 # Get unit for Weather Underground
+# Supports Docker environment variable format WU_UNIT
 config['unit'] = os.environ.get('WU_UNIT')
 if config['unit'] is None or (config['unit'] != "m" and config['unit'] != "e" and config['unit'] != "h"):
     logger.info("WU_UNIT is not set or incorrect, use metric")
@@ -166,7 +161,7 @@ def wunderground_get_weather():
     mqttclient.publish(config['publish_topic'] + "/"+config['stationid']+"/weatherInfo", weather_json_str, retain=True)
     mqttclient.publish(config['publish_topic'] + "/"+config['stationid']+"/"+unitDesc, metric_json_str, retain=True)
 
-    logger.info("Published " + str(config['deviceid']) + " data to " + str(config['publish_topic']))
+    logger.info("Published " + str(config['stationid']) + " data to " + str(config['publish_topic']))
 
 
 # Create the Mosquitto client
