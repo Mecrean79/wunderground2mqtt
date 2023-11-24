@@ -2,7 +2,7 @@
 
 A docker image for Simple MQTT publisher of weather data using the WeatherUnderground API V2.
  -> Fork simonvanderveldt/mqtt-wunderground  (thanks to him)
-Connect to the "current condition" Domain (https://ibm.co/v2PWSCC) for 1 PWS only.
+ Connect to the "current condition" Domain (https://ibm.co/v2PWSCC) for 1 PWS only.
 Publishes the temperature, relative humidity, precipitation, pressure, windspeed, winddirection and solar Radiation/uv from a given Personal Weather Station
 
 ## How it works
@@ -21,19 +21,19 @@ Publishes the temperature, relative humidity, precipitation, pressure, windspeed
 ### How to configure
 wunderground2mqtt reads configuration from docker-compose.yml environment section.
 
-Most of environment variable required :
+Most of environment variables used :
 
-      MQTT_HOST: MQTT broker ip adress (like 192.168.0.1) or localhost (localhost default)
-      MQTT_PORT: Port number use by MQTT brocker (1883 if empty)
-      MQTT_USERNAME: Username if credential activated on broker (if empty, anonymous connection)
-      MQTT_PASSWORD: Password if credential activated on broker
-      MQTT_PUBLISH_TOPIC: Root Topic use to add MQTT ibformation (default : wunderground)
-      MQTT_CONFIG_TOPIC: Configuration topic to change configuration through MQQT (config/clients/wunderground by default)
-      WU_API_KEY: Your WeatherUnderground API key (see https://www.wunderground.com/member/api-keys)
-      WU_UPDATERATE: Integer - Time between request WU API in seconds (default 900)
-      WU_STATIONID: Your WeatherUnderground PWS ID  (see https://www.wunderground.com/member/devices)
-      WU_DECIMAL: Boolean - Add decimal to integer value return by WU API (default : True)
-      WU_UNIT: version of unit json API (observations/0/<unit>). Values are m for metric (default), e for imperial and h for uk_hybrid
+	MQTT_HOST: MQTT broker ip adress (like 192.168.0.1) or localhost (localhost default)
+	MQTT_PORT: Port number use by MQTT brocker (1883 if empty)
+	MQTT_USERNAME: Username if credential activated on broker (if empty, anonymous connection)
+	MQTT_PASSWORD: Password if credential activated on broker
+	MQTT_PUBLISH_TOPIC: Root Topic use to add MQTT ibformation (default : wunderground)
+	MQTT_CONFIG_TOPIC: Configuration topic to change configuration through MQQT (config/clients/wunderground by default)
+	WU_API_KEY: Your WeatherUnderground API key (see https://www.wunderground.com/member/api-keys)
+	WU_UPDATERATE: Integer - Time between request WU API in seconds (default 900)
+	WU_STATIONID: Your WeatherUnderground PWS ID  (see https://www.wunderground.com/member/devices)
+	WU_DECIMAL: Boolean - Add decimal to integer value return by WU API (default : True)
+	WU_UNIT: version of unit json API (observations/0/<unit>). Values are m for metric (default), e for imperial and h for uk_hybrid
 	  
 ### How to build/deploy
 This repository/script designed for docker use.
