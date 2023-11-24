@@ -40,12 +40,12 @@ This repository/script designed for docker use.
 Docker is required for use image/container.
 If you want to use directly (without docker), you need to modify pyhton script (config values) [TODO : create standalone version]
 With docker : 
-	1) Clone this repository to your local server
-	2) Build docker image Mecrean79/wunderground2mqtt in your local clone (ex cmd : docker build -t Mecrean79/wunderground2mqtt)
-	[TODO : push image on docker hub and add command]
-	3) Docker run or compose container (compose here) : 
-	  ex cmd in docker-compose.yml folder: docker compose up -d wunderground2mqtt
-	4) Check container execution or logs error
+1) Clone this repository to your local server
+2) Build docker image Mecrean79/wunderground2mqtt in your local clone (ex cmd : docker build -t Mecrean79/wunderground2mqtt)
+3) [TODO : push image on docker hub and add command]
+4) Docker run or compose container (compose here) :
+ex cmd in docker-compose.yml folder: docker compose up -d wunderground2mqtt
+5) Check container execution or logs error
 
 ## TODO/improvments
 - Multiples PWS
