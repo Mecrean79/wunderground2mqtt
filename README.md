@@ -19,7 +19,7 @@ Publishes the temperature, relative humidity, precipitation, pressure, windspeed
 
 ## Usage
 ### How to configure
-wunderground2mqtt reads configuration to docker-compose.yml environment section.
+wunderground2mqtt reads configuration from docker-compose.yml environment section.
 
 Most of environment variable required :
 
