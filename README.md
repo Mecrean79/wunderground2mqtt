@@ -2,18 +2,18 @@
 
 A docker image for Simple MQTT publisher of weather data using the WeatherUnderground API V2.  
  -> Fork simonvanderveldt/mqtt-wunderground  (thanks to him)  
- Connect to the "current condition" Domain (https://ibm.co/v2PWSCC) for 1 PWS only.  
+Connect to the "current condition" Domain (https://ibm.co/v2PWSCC) for 1 PWS only.  
 Publishes the temperature, relative humidity, precipitation, pressure, windspeed, winddirection and solar Radiation/uv from a given Personal Weather Station
 
 ## How it works
  - Create the http request for WUnderground API with os Environment config
  - Parse result of the request
  - Recreate json to publish on MQTT broker :
-   -  New PWS Topic : <config 'MQTT_CONFIG_TOPIC'>/<config 'WU_STATIONID'>/station
+   -  New PWS Topic : <config 'MQTT_CONFIG_TOPIC'>/<config 'WU_STATIONID'>/station  
      ex : station = {"obsTimeLocal":"2023-11-22 21:30:04","neighborhood":"Thouaré-sur-Loire","country":"FR"}
-   - New Weather Topic : <config 'MQTT_CONFIG_TOPIC'>/<config 'WU_STATIONID'>/weatherInfo
+   - New Weather Topic : <config 'MQTT_CONFIG_TOPIC'>/<config 'WU_STATIONID'>/weatherInfo  
      ex : weatherInfo = {"humidity":82.0,"uv":0,"winddir":'78.0,"solarRadiation":0}
-   - Extract <unit> topic of WU API : <config 'MQTT_CONFIG_TOPIC'>/<config 'WU_STATIONID'>/<config 'WU_UNIT'>
+   - Extract <unit> topic of WU API : <config 'MQTT_CONFIG_TOPIC'>/<config 'WU_STATIONID'>/<config 'WU_UNIT'>  
      ex : uk_hybrid = {"temp":6.4,"heatIndex":6.4,"dewpt":5.3,"windChill":6.4,"windSpeed":0.0,"windGust":0.0,"pressure":1024.72,"precipRate":0.00,"precipTotal":0.00,"elev":24.0}
 
 
@@ -38,7 +38,7 @@ Most of environment variables used :
 ### How to build/deploy
 This repository/script designed for docker use.  
 Docker is required for use image/container.  
-If you want to use directly (without docker), you need to modify pyhton script (config values) [TODO : create standalone version]  
+If you want to directly use (without docker), you need to modify pyhton script (config values) [TODO : create standalone version]  
 With docker : 
 1) Clone this repository to your local server
 2) Build docker image Mecrean79/wunderground2mqtt in your local clone (ex cmd : docker build -t Mecrean79/wunderground2mqtt)
