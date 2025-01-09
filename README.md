@@ -27,8 +27,8 @@ Most of environment variables used :
 	MQTT_PORT: Port number use by MQTT brocker (1883 if empty)
 	MQTT_USERNAME: Username if credential activated on broker (if empty, anonymous connection)
 	MQTT_PASSWORD: Password if credential activated on broker
-	MQTT_PUBLISH_TOPIC: Root Topic use to add MQTT ibformation (default : wunderground)
-	MQTT_CONFIG_TOPIC: Configuration topic to change configuration through MQQT (config/clients/wunderground by default)
+	MQTT_PUBLISH_TOPIC: Root Topic use to add MQTT information (default : wunderground)
+	MQTT_CONFIG_TOPIC: Configuration topic to change configuration through MQTT (config/clients/wunderground by default)
 	WU_API_KEY: Your WeatherUnderground API key (see https://www.wunderground.com/member/api-keys)
 	WU_UPDATERATE: Integer - Time between request WU API in seconds (default 900)
 	WU_STATIONID: Your WeatherUnderground PWS ID  (see https://www.wunderground.com/member/devices)
@@ -36,8 +36,8 @@ Most of environment variables used :
 	WU_UNIT: version of unit json API (observations/0/<unit>). Values are m for metric (default), e for imperial and h for uk_hybrid
 	  
 ### How to build/deploy
-This repository/script designed for docker use.  
-Docker is required for use image/container.  
+This repository/script designed for docker.  
+Docker is required to use image/container.  
 If you want to directly use (without docker), you need to modify pyhton script (config values) [TODO : create standalone version]  
 With docker : 
 1) Clone this repository to your local server
